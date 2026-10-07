@@ -1330,6 +1330,7 @@ const buttons=Array.from(document.querySelectorAll('.batch-btn'));
 const number=p=>Number(p.dataset.builderBatch||p.dataset.refreshBatch||p.id.replace(/\D/g,''));
 function select(n){
  const panel=panels.find(p=>number(p)===Number(n));if(!panel)return;
+ const masthead=document.querySelector('.hero-brand .logo-sub');if(masthead){const activeButton=buttons.find(b=>Number(b.dataset.batch)===Number(n));const date=activeButton?.querySelector('.batch-date')?.textContent.trim()||panel.dataset.batchDate;masthead.textContent='Batch '+n+(date?' · '+date:'')}
  panels.forEach(p=>{const active=p===panel;p.hidden=!active;p.classList.toggle('hidden',!active);p.style.display=active?'':'none';if(p.hasAttribute('data-builder-batch'))p.dataset.builderBatchHidden=String(!active)});
  buttons.forEach(b=>{const active=Number(b.dataset.batch)===Number(n);b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});
  const count=panel.querySelectorAll('.card-name').length;const heading=document.querySelector('.candidates-header h2');if(heading)heading.textContent=count+' candidates to review';
